@@ -17,9 +17,9 @@ def main():
     global CM
     global pic
     global f1_ax2
-    img = mimg.imread('MucioMelon.JPG')
-    lum_img = img[:, :, 0]
-    # lum_img = mimg.imread('bw.jpg')
+    # img = mimg.imread('MucioMelon.JPG')
+    # lum_img = img[:, :, 0]
+    lum_img = mimg.imread('bw.jpg')
 
     fig1 = plt.figure()
     spec1 = gridspec.GridSpec(ncols=2, nrows=1, figure=fig1, bottom=0.3, left=0.2, right= 0.8)
@@ -47,8 +47,8 @@ def main():
         for i in range (255):
             t = i/255
             map[i][0]=red.f(t)
-            map[i][1]=blue.f(t)
-            map[i][2]=green.f(t)
+            map[i][2]=blue.f(t)
+            map[i][1]=green.f(t)
             map[i][3]=1
         ncmap = ListedColormap(map)
         return ncmap
