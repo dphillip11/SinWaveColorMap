@@ -1,85 +1,70 @@
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Slider, Button
 from wave import Wave
-import numpy as np
-from PIL import Image as im
-
-
-
 
 
  
 
 def main():
-    def reset(event):
-        freq_slider.reset()
-        amp_slider.reset()
-
-    def update(val, Wave):
-        Wave.amp(amp_slider.val)
-        Wave.compress(freq_slider.val)
-        line.set_ydata(Wave.calculate(t))
-        fig.canvas.draw_idle()
-
-    def updateR(val):
-        update(val, Wave=red)
-    
-    # phase, amplitude frequency
-    red = Wave(0, 1, 1)
-    blue = Wave(2, 1, 1)
-    green = Wave(4, 1, 1)
-
-    # define time range
-    t = np.linspace(0, 1, 1000)
 
     fig, ax = plt.subplots()
 
-    # define waves
-    lineR = ax.plot(t, red.calculate(t), lw=2)
-    lineG = ax.plot(t, green.calculate(t), lw=2)
-    lineB = ax.plot(t, blue.calculate(t), lw=2)
-
-    # leave space for slider
     ax.set_xlabel('Time [s]')
-    fig.subplots_adjust(left=0.25, bottom=0.25)
-
-    # frequency slider properties
-    freqR = [0.25, 0.1, 0.65, 0.03]
-
-    # Make a horizontal slider to control the frequency.
-    axfreq = fig.add_axes(freqR)
-    freq_slider = Slider(
-        ax=axfreq,
-        label='Frequency [Hz]',
-        valmin=0.1,
-        valmax=30,
-        valinit=red.freq,
-    )
+    fig.subplots_adjust(left=0.2, bottom=0.3, right=0.8)
     
-    # amplitude slider properties
-    ampR = [0.1, 0.25, 0.0225, 0.63]
+    # phase, amplitude frequency
+    red = Wave('R', 0, 1, 7)
+    green = Wave('G', 0.2, 4, 1)
+    blue = Wave('B', 0.4, 2, 1)
 
-    # Make a vertically oriented slider to control the amplitude
-    axamp = fig.add_axes(ampR)
-    amp_slider = Slider(
-        ax=axamp,
-        label="Amplitude",
-        valmin=0,
-        valmax=10,
-        valinit=red.amp,
-        orientation="vertical"
-    )
-
-    # register the update function with each slider
-    freq_slider.on_changed(updateR)
-    amp_slider.on_changed(updateR)
-
-    # Create a `matplotlib.widgets.Button` to reset the sliders to initial values.
-    resetax = fig.add_axes([0.8, 0.025, 0.1, 0.04])
-    button = Button(resetax, 'Reset', hovercolor='0.975')
+    lineR, = red.line(ax)
+    lineG, = green.line(ax)
+    lineB, = blue.line(ax)
     
-    button.on_clicked(reset)
+    hrect1 = [0.2, 0, 0.6, 0.08]
+    hrect2 = [0.2, 0.05, 0.6, 0.08]
+    hrect3 = [0.2, 0.1, 0.6, 0.08]
+    
+    vrect1 = [0, 0.3, 0.08, 0.6]
+    vrect2 = [0.05, 0.3, 0.08, 0.6]
+    vrect3 = [0.1, 0.3, 0.08, 0.6]
+
+    vrect4 = [0.92, 0.3, 0.08, 0.6]
+    vrect5 = [0.87, 0.3, 0.08, 0.6]
+    vrect6 = [0.82, 0.3, 0.08, 0.6]
+    
+
+    red.sliders(fig, vrect4, vrect1, hrect1)
+    green.sliders(fig, vrect5, vrect2, hrect2)
+    blue.sliders(fig, vrect6, vrect3, hrect3)
+
+    def update(val):
+        red.update()
+        green.update()
+        blue.update()
+
+        lineR.set_ydata(red.values())
+        lineG.set_ydata(green.values())
+        lineB.set_ydata(blue.values())
+        fig.canvas.draw_idle()
+
+    red.sliderF.on_changed(update)
+    red.sliderA.on_changed(update)
+    red.sliderP.on_changed(update)
+
+    green.sliderF.on_changed(update)
+    green.sliderA.on_changed(update)
+    green.sliderP.on_changed(update)
+
+    blue.sliderF.on_changed(update)
+    blue.sliderA.on_changed(update)
+    blue.sliderP.on_changed(update)
+    
+
     plt.show()
+
+   
+
+
 
 
 if __name__ == "__main__":
