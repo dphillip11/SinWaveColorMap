@@ -24,7 +24,7 @@ class Wave:
 
     # return a 2Dline object using current parameters
     def line(self, ax = plt):
-        waveLine = ax.plot(self.t, self.f(self.t), lw=2)
+        waveLine = ax.plot(self.t, self.f(self.t), lw=2, color=self.name)
         return waveLine
 
     # return y values using current parameters
@@ -34,7 +34,7 @@ class Wave:
 
     def sliders(self, fig, rectF='', rectA='', rectP=''):
         if rectF:
-            self.fAxis = fig.add_axes(rectF, label=self.name + 'f')
+            self.fAxis = fig.add_axes(rectF, label=self.name + 'F')
             self.sliderF = Slider(
                 ax = self.fAxis,
                 label = self.fAxis._label,
@@ -43,7 +43,7 @@ class Wave:
                 valinit=self.freq,
                 orientation="vertical")
         if rectA:
-            self.aAxis = fig.add_axes(rectA, label=self.name + 'a')
+            self.aAxis = fig.add_axes(rectA, label=self.name + 'A')
             self.sliderA = Slider(
                 ax = self.aAxis,
                 label = self.aAxis._label,
@@ -52,7 +52,7 @@ class Wave:
                 valinit=self.amp,
                 orientation="vertical")
         if rectF:
-            self.pAxis = fig.add_axes(rectP, label=self.name + 'p')
+            self.pAxis = fig.add_axes(rectP, label=self.name + 'P')
             self.sliderP = Slider(
                 ax = self.pAxis,
                 label = self.pAxis._label,

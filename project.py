@@ -4,6 +4,8 @@ from matplotlib import cm, image as mimg
 from matplotlib.colors import ListedColormap
 import numpy as np
 import matplotlib.gridspec as gridspec
+from matplotlib.widgets import Slider, Button
+import csv
 
  
 CM=0
@@ -11,25 +13,30 @@ pic=0
 f1_ax2=0
 
 def main():
+
     global CM
     global pic
     global f1_ax2
-    # img = mimg.imread('MucioMelon.JPG')
-    # lum_img = img[:, :, 0]
-    lum_img = mimg.imread('bw.jpg')
+    img = mimg.imread('MucioMelon.JPG')
+    lum_img = img[:, :, 0]
+    # lum_img = mimg.imread('bw.jpg')
 
     fig1 = plt.figure()
-    spec1 = gridspec.GridSpec(ncols=2, nrows=1, figure=fig1, bottom=0.3, left=0.3, right= 0.7)
+    spec1 = gridspec.GridSpec(ncols=2, nrows=1, figure=fig1, bottom=0.3, left=0.2, right= 0.8)
     f1_ax1 = fig1.add_subplot(spec1[0, 0])
     f1_ax2 = fig1.add_subplot(spec1[0, 1])
     plt.axis('off')
+    f1_ax3 = fig1.add_axes([0.87, 0.05, 0.1, 0.075])
+    save = Button(f1_ax3, 'save\n colormap')
+    
+    
 
     f1_ax1.set_xlabel('Time [s]')
       
     # phase, amplitude frequency
-    red = Wave('R')
-    green = Wave('G')
-    blue = Wave('B')
+    red = Wave('red')
+    green = Wave('green')
+    blue = Wave('blue')
 
     lineR, = red.line(f1_ax1)
     lineG, = green.line(f1_ax1)
@@ -46,6 +53,10 @@ def main():
         ncmap = ListedColormap(map)
         return ncmap
 
+    def store(val):
+        cmap2csv(colormap())
+    save.on_clicked(store)
+    
     ncmap=colormap()
     CM = fig1.colorbar(cm.ScalarMappable(cmap=ncmap), ax=f1_ax2)
     
@@ -104,13 +115,16 @@ def main():
     
     plt.show()
  
+def cmap2csv(cmap, filename='colormap.csv'):   
+    cols = cmap(np.ones((255,3)))
+    cols = (cols * 255).astype(int)
+    with open(filename, "w", newline='') as file:
+        writer = csv.writer(file)
+        for col in cols:
+            writer.writerow(col[0][:3])
 
-    
+ 
 
    
-
-
-
-
 if __name__ == "__main__":
     main()
