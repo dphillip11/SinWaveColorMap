@@ -4,12 +4,12 @@ from matplotlib.widgets import Slider, Button
 
 class Wave:
     # initial values, unless stated
-    def __init__(self, name, phase=0, amplitude=1, freq=1):
+    def __init__(self, name, phase=0, amplitude=0.5, freq=1):
         self.name = name
         self.phase = phase
         self.amp = amplitude
         self.freq = freq
-        self.t = np.linspace(0, 1, 1000)
+        self.t = np.linspace(0, 1, 256)
 
     # update all values
     def update(self):
@@ -18,8 +18,8 @@ class Wave:
         self.freq = self.sliderF.val   
 
     # calculate y value for given x
-    def f(self, t):
-            y = self.amp * (np.sin(2 * np.pi * self.freq * (t + self.phase)))
+    def f(self, x):
+            y = self.amp * (np.sin(2 * np.pi * self.freq * (x + self.phase))+1)
             return y
 
     # return a 2Dline object using current parameters
@@ -38,8 +38,8 @@ class Wave:
             self.sliderF = Slider(
                 ax = self.fAxis,
                 label = self.fAxis._label,
-                valmin=0.1,
-                valmax=30,
+                valmin=0,
+                valmax=3,
                 valinit=self.freq,
                 orientation="vertical")
         if rectA:
@@ -47,8 +47,8 @@ class Wave:
             self.sliderA = Slider(
                 ax = self.aAxis,
                 label = self.aAxis._label,
-                valmin=0.1,
-                valmax=30,
+                valmin=0,
+                valmax=1,
                 valinit=self.amp,
                 orientation="vertical")
         if rectF:
