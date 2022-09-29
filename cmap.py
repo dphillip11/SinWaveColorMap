@@ -1,9 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt, image as mimg
 from matplotlib import cm
 from matplotlib.colors import ListedColormap, LinearSegmentedColormap
 from math import sin
 
+img = mimg.imread('MucioMelon.JPG')
 
 
 map = np.zeros(shape=(255,4), dtype=float)
@@ -15,13 +16,17 @@ for i in range (255):
 
 newcmp = ListedColormap(map)
 
-fig, ax = plt.subplots()
+lum_img = img[:, :, 0]
 
-cmap = newcmp(np.linspace(0, 1, 256))
+plt.imshow(lum_img, cmap=newcmp)
+
+
+# fig, ax = plt.subplots()
+
+# cmap = newcmp(img)
 # mesh = ax.pcolormesh(cmap)
 # plt.colorbar(mesh, ax=ax)
 
-fig.colorbar(cm.ScalarMappable(cmap=newcmp), ax=ax)
 
 
 plt.show()

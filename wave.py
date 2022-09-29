@@ -4,7 +4,7 @@ from matplotlib.widgets import Slider, Button
 
 class Wave:
     # initial values, unless stated
-    def __init__(self, name, phase=0, amplitude=0.5, freq=1):
+    def __init__(self, name, phase=1, amplitude=0.5, freq=1):
         self.name = name
         self.phase = phase
         self.amp = amplitude
@@ -48,7 +48,7 @@ class Wave:
                 ax = self.aAxis,
                 label = self.aAxis._label,
                 valmin=0,
-                valmax=1,
+                valmax=0.5,
                 valinit=self.amp,
                 orientation="vertical")
         if rectF:
@@ -57,7 +57,7 @@ class Wave:
                 ax = self.pAxis,
                 label = self.pAxis._label,
                 valmin=0,
-                valmax=1,
+                valmax=2,
                 valinit=self.phase)
 
     # getters
