@@ -98,20 +98,8 @@ def main():
         CM = fig1.colorbar(cm.ScalarMappable(cmap=ncmap), ax=f1_ax2)
         pic = f1_ax2.imshow(lum_img, cmap=ncmap)
         
-        
-
-    red.sliderF.on_changed(update)
-    red.sliderA.on_changed(update)
-    red.sliderP.on_changed(update)
-
-    green.sliderF.on_changed(update)
-    green.sliderA.on_changed(update)
-    green.sliderP.on_changed(update)
-
-    blue.sliderF.on_changed(update)
-    blue.sliderA.on_changed(update)
-    blue.sliderP.on_changed(update)
-    
+    trigger1 = fig1.canvas.mpl_connect('motion_notify_event', update)
+    trigger2 = fig1.canvas.mpl_connect('button_press_event', update)
     
     plt.show()
  
