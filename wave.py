@@ -57,7 +57,7 @@ class Wave:
                 ax = self.pAxis,
                 label = self.pAxis._label,
                 valmin=0,
-                valmax=2,
+                valmax=5,
                 valinit=self.phase)
 
     # getters
