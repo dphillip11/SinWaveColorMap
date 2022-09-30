@@ -34,7 +34,7 @@ class Wave:
 
     def sliders(self, fig, rectF='', rectA='', rectP=''):
         if rectF:
-            self.fAxis = fig.add_axes(rectF, label=self.name + 'F')
+            self.fAxis = fig.add_axes(rectF, label=self.name[0] + 'F')
             self.sliderF = Slider(
                 ax = self.fAxis,
                 label = self.fAxis._label,
@@ -43,7 +43,7 @@ class Wave:
                 valinit=self.freq,
                 orientation="vertical")
         if rectA:
-            self.aAxis = fig.add_axes(rectA, label=self.name + 'A')
+            self.aAxis = fig.add_axes(rectA, label=self.name[0] + 'A')
             self.sliderA = Slider(
                 ax = self.aAxis,
                 label = self.aAxis._label,
@@ -52,7 +52,7 @@ class Wave:
                 valinit=self.amp,
                 orientation="vertical")
         if rectF:
-            self.pAxis = fig.add_axes(rectP, label=self.name + 'P')
+            self.pAxis = fig.add_axes(rectP, label=self.name[0] + 'P')
             self.sliderP = Slider(
                 ax = self.pAxis,
                 label = self.pAxis._label,
