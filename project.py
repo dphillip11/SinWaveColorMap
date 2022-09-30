@@ -35,7 +35,7 @@ def main():
     
     def store(val):
         cmap2lut(red, green, blue)
-        test_LUT()
+        check_LUT()
         
     save.on_clicked(store)
        
@@ -52,6 +52,7 @@ def main():
     lineB, = blue.line(f1_ax1)
 
     ncmap = Lcolormap(red,green,blue)
+    
 
     CM = fig1.colorbar(cm.ScalarMappable(cmap=ncmap), ax=f1_ax2)
     
@@ -121,16 +122,20 @@ def cmap2lut(R, G, B, filename='lut.bmp'):
         colormap[i, 0, 1]= G.f(t)*255
         colormap[i, 0, 0]= B.f(t)*255
 
-    cv2.imwrite('lut.bmp', colormap)
+    cv2.imwrite(filename, colormap)
+    return
 
-def test_LUT(filename='lut.bmp'):
+def check_LUT(LUT='lut.bmp', Save=0, image='MucioMelon.JPG'):
     
-    lut = cv2.imread(filename)
-    img_gray = cv2.imread('MucioMelon.JPG')
+    lut = cv2.imread(LUT)
+    img_gray = cv2.imread(image)
     im_color = cv2.LUT(img_gray, lut)
+    
+    if Save==1:
+        cv2.imwrite(image+LUT, im_color)
 
-    cv2.imshow('color', im_color) 
-    cv2.waitKey(0)   
+    cv2.imshow('color', im_color)
+    cv2.waitKey(2000)   
     cv2.destroyAllWindows() 
    
 

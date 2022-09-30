@@ -9,7 +9,7 @@ class Wave:
         self.phase = phase
         self.amp = amplitude
         self.freq = freq
-        self.t = np.linspace(0, 1, 256)
+        self.t = np.linspace(0, 1, 255)
 
     # update all values
     def update(self):
