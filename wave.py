@@ -19,7 +19,7 @@ class Wave:
 
     # calculate y value for given x
     def f(self, x):
-            y = self.amp * (np.sin(2 * np.pi * self.freq * (x + self.phase))+1)
+            y = self.amp * (np.sin(2 * np.pi * self.freq * (x - self.phase))+1)
             return y
 
     # return a 2Dline object using current parameters
