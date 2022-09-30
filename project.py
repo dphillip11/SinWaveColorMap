@@ -4,7 +4,7 @@ from matplotlib import cm, image as mimg
 from matplotlib.colors import ListedColormap
 import numpy as np
 import matplotlib.gridspec as gridspec
-from matplotlib.widgets import Slider, Button
+from matplotlib.widgets import Button
 import cv2
 
 
